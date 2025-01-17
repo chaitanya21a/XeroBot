@@ -17,7 +17,7 @@ module.exports = {
             console.log("Last processed mention ID:", lastProcessedId);
 
             const params = {
-                max_results: 5,
+                max_results: 3, // Fetch fewer mentions per request
                 "tweet.fields": ["author_id", "conversation_id"],
                 expansions: ["author_id"],
             };
@@ -64,7 +64,7 @@ module.exports = {
                     lastProcessedId = mention.id;
                     writeLastMentionId(lastProcessedId);
 
-                    await sleep(30000); // 30 seconds between replies
+                    await sleep(60000); // 60 seconds between replies
                 } catch (error) {
                     console.error(`Error processing mention ${mention.id}:`, error);
                     if (await handleRateLimit(error)) continue;
